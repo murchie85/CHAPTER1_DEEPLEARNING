@@ -10,7 +10,7 @@ class NeuralNetwork():
         # We model a single neuron, with 3 input connections and 1 output connection.
         # We assign random weights to a 3 x 1 matrix, with values in the range -1 to 1
         # and mean 0.
-        self.synaptic_weights = 2 * random.random((3, 1)) - 1
+        self.node_weights = 2 * random.random((3, 1)) - 1
 
     # The Sigmoid function, which describes an S shaped curve.
     # We pass the weighted sum of the inputs through this function to
@@ -41,12 +41,12 @@ class NeuralNetwork():
             adjustment = dot(training_set_inputs.T, error * self.__sigmoid_derivative(output))
 
             # Adjust the weights.
-            self.synaptic_weights += adjustment
+            self.node_weights += adjustment
 
     # The neural network thinks.
     def think(self, inputs):
         # Pass inputs through our neural network (our single neuron).
-        return self.__sigmoid(dot(inputs, self.synaptic_weights))
+        return self.__sigmoid(dot(inputs, self.node_weights))
 
 
 if __name__ == "__main__":
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     neural_network = NeuralNetwork()
 
     print "Random starting synaptic weights: "
-    print neural_network.synaptic_weights
+    print neural_network.node_weights
 
     # The training set. We have 4 examples, each consisting of 3 input values
     # and 1 output value.
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     neural_network.train(training_set_inputs, training_set_outputs, 10000)
 
     print "New synaptic weights after training: "
-    print neural_network.synaptic_weights
+    print neural_network.node_weights
 
     # Test the neural network with a new situation.
     print "Considering new situation [1, 0, 0] -> ?: "
